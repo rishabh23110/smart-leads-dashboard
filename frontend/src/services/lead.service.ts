@@ -5,6 +5,7 @@ export const leadService = {
   getLeads: (filters: Partial<LeadFilters>) => {
     const params = new URLSearchParams();
     if (filters.page) params.set('page', String(filters.page));
+    if (filters.limit) params.set('limit', String(filters.limit));
     if (filters.search) params.set('search', filters.search);
     if (filters.status) params.set('status', filters.status);
     if (filters.source) params.set('source', filters.source);
@@ -33,7 +34,8 @@ export const leadService = {
     if (filters.status) params.set('status', filters.status);
     if (filters.source) params.set('source', filters.source);
     const token = localStorage.getItem('token');
-    const url = `/api/leads/export?${params.toString()}`;
+    const baseURL = (import.meta.env.VITE_API_URL as string | undefined) ?? '/api';
+    const url = `${baseURL}/leads/export?${params.toString()}`;
     fetch(url, { headers: { Authorization: `Bearer ${token ?? ''}` } })
       .then((r) => r.blob())
       .then((blob) => {

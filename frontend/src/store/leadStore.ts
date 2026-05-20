@@ -9,6 +9,7 @@ const defaultFilters: LeadFilters = {
   source: '',
   sort: 'latest',
   page: 1,
+  limit: 10,
 };
 
 interface LeadState {

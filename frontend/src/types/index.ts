@@ -45,6 +45,7 @@ export interface LeadFilters {
   source: LeadSource | '';
   sort: SortOrder;
   page: number;
+  limit: number;
 }
 
 export interface LeadStats {

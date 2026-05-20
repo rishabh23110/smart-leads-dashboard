@@ -9,6 +9,7 @@ interface PaginationProps {
 
 export const Pagination = ({ meta, onPageChange }: PaginationProps) => {
   const { currentPage, totalPages, totalRecords, hasPrevPage, hasNextPage } = meta;
+  const perPage = totalPages > 0 ? Math.ceil(totalRecords / totalPages) : totalRecords;
 
   const pages = Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
     if (totalPages <= 7) return i + 1;
@@ -24,7 +25,7 @@ export const Pagination = ({ meta, onPageChange }: PaginationProps) => {
       <p className="text-sm text-slate-500">
         Showing{' '}
         <span className="font-medium text-slate-900">
-          {(currentPage - 1) * 10 + 1}–{Math.min(currentPage * 10, totalRecords)}
+          {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, totalRecords)}
         </span>{' '}
         of <span className="font-medium text-slate-900">{totalRecords}</span> leads
       </p>
